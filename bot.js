@@ -29,11 +29,11 @@ function nodejs_pool_bot(site, url){
 
 function cn_pool_bot(site, url){
     let client = request.createClient(url);
-    client.get('stats', function(err, res, body){
+    client.get('get_blocks?height=999999999', function(err, res, body){
         if (err){
             console.error(err);
         } else {
-            let blocks = body.pool.blocks;
+            let blocks = body;
             if (Object.keys(blocks).length > 1){
                 let block_height = parseInt(blocks[1]);
                 debug(site + " is at height: " + block_height);
