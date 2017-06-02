@@ -5,7 +5,7 @@
     "config": {
       "userName": "snipablocks",
       "realName": "Snipa Block IRC Relay",
-      "ssl": true,
+      "secure": true,
       "password": "this_should_be_secret",
       "sasl": true,
       "channels": ["##secret_debug_channel"]
