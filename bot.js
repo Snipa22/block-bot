@@ -56,6 +56,9 @@ function cn_pool_bot(site, url){
 }
 
 Object.keys(config.hosts).forEach(function(host){
+    if (!config.hosts[host].enabled){
+        return;
+    }
     debug("Initalizing " + host + " with API base: " + config.hosts[host].api);
     switch (config.hosts[host].type){
         case 'nodejs-pool':

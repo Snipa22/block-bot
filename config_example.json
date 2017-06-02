@@ -15,17 +15,32 @@
     "XMRPool.net": {
       "api": "https://api.xmrpool.net/",
       "type": "nodejs-pool",
-      "last_block_id": 0
+      "last_block_id": 0,
+      "enabled": true
     },
     "supportXMR.com": {
-      "api": "https://supportxmr.com/api/",
+      "api": "https://pool.supportxmr.com/api/",
       "type": "nodejs-pool",
-      "last_block_id": 0
+      "last_block_id": 0,
+      "enabled": true
     },
     "xmrpool.eu": {
       "api": "http://94.23.251.22:8117/",
       "type": "node-cn-pool",
-      "last_block_id": 0
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "MoneroPool.com": {
+      "api": "https://api.moneropool.com/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "monero.crypto-pool.fr": {
+      "api": "https://monero.crypto-pool.fr:8091/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
     }
   }
 }
