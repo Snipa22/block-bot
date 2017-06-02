@@ -41,6 +41,108 @@
       "type": "node-cn-pool",
       "last_block_id": 0,
       "enabled": true
+    },
+    "XMR.PooLTo.Be": {
+      "api": "https://xmr.poolto.be:8120/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "mineXMR.com": {
+      "api": "http://api.minexmr.com:8080/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "xmr.prohash.net": {
+      "api": "http://xmr.prohash.net:8117/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "sheepman.mine.bz": {
+      "api": "http://sheepman.mine.bz:8117/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "xmr.mypool.online": {
+      "api": "https://xmr.mypool.online/api/",
+      "type": "nodejs-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "xmr.pool.pt": {
+      "api": "https://xmr.pool.pt/api/",
+      "type": "nodejs-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "pool.miners.pro": {
+      "api": "http://pool.miners.pro:8117/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "cryptmonero.com": {
+      "api": "http://46.165.232.77:8117/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "MoneroHash.com": {
+      "api": "https://monerohash.com/api/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "monero.us.to": {
+      "api": "http://monero.us.to:8117/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "USXMRPool.com": {
+      "api": "https://www.usxmrpool.com:8119/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "XMRminingpool.com": {
+      "api": "https://xmrminingpool.com/api/",
+      "type": "nodejs-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "minemonero.gq": {
+      "api": "http://minemonero.gq/pool/point/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "MixPools.org": {
+      "api": "https://mixpools.org:8117/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "xmr.alimabi.cn": {
+      "api": "http://xmrapib.alimabi.cn:80/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "pooldd.com": {
+      "api": "http://minexmr.pooldd.com:8080/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
+    },
+    "monero.riefly.id": {
+      "api": "https://xmr.riefly.id:8119/",
+      "type": "node-cn-pool",
+      "last_block_id": 0,
+      "enabled": true
     }
   }
 }
