@@ -1,6 +1,6 @@
 "use strict";
 let fs = require("fs");
-let config = fs.readFileSync("./config.json");
+let config = JSON.parse(fs.readFileSync("./config.json"));
 let request = require('request-json');
 let irc = require("irc");
 let debug = require("debug")("ircbot");
@@ -55,13 +55,14 @@ function cn_pool_bot(site, url){
     });
 }
 
-Array.keys(config.hosts).forEach(function(host){
+Object.keys(config.hosts).forEach(function(host){
+    debug("Initalizing " + host + " with API base: " + config.hosts[host].api)
     switch (config.hosts[host].type){
         case 'nodejs-pool':
-            nodejs_pool_bot(host, config.hosts[host].url);
+            nodejs_pool_bot(host, config.hosts[host].api);
             break;
         case 'node-cn-pool':
-            cn_pool_bot(host, config.hosts[host].url);
+            cn_pool_bot(host, config.hosts[host].api);
             break;
     }
 });
