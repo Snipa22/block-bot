@@ -13,7 +13,7 @@ function nodejs_pool_bot(site, url){
         if (err){
             console.error(err);
         } else {
-            if (body.size() > 0 && body[0].height > config.hosts[site].last_block_id){
+            if (body.length > 0 && body[0].height > config.hosts[site].last_block_id){
                 debug(site + " is at height: " + body[0].height);
                 if (config.hosts[site].last_block_id !== 0){
                     config.irc.config.channels.forEach(function(channel){
@@ -37,7 +37,7 @@ function cn_pool_bot(site, url){
             console.error(err);
         } else {
             let blocks = body.pool.blocks;
-            if (blocks.size() > 1){
+            if (Object.keys(blocks).length > 1){
                 let block_height = parseInt(blocks[1]);
                 debug(site + " is at height: " + block_height);
                 if (block_height > config.hosts[site].last_block_id && config.hosts[site].last_block_id !== 0){
