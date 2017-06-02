@@ -3,6 +3,7 @@ let fs = require("fs");
 let config = fs.readFileSync("./config.json");
 let request = require('request-json');
 let irc = require("irc");
+let debug = require("debug")("ircbot");
 
 let bot = new irc.Client(config.irc.server, config.irc.nick, config.irc.config);
 
@@ -13,6 +14,7 @@ function nodejs_pool_bot(site, url){
             console.error(err);
         } else {
             if (body.length() > 0 && body[0].height > config.hosts[site].last_block_id){
+                debug(site + " is at height: " + body[0].height);
                 if (config.hosts[site].last_block_id !== 0){
                     config.irc.config.channels.forEach(function(channel){
                         bot.say(channel, "Block " + body[0].height + " found on "+site+" approximately "+
@@ -37,6 +39,7 @@ function cn_pool_bot(site, url){
             let blocks = body.pool.blocks;
             if (blocks.length() > 1){
                 let block_height = parseInt(blocks[1]);
+                debug(site + " is at height: " + block_height);
                 if (block_height > config.hosts[site].last_block_id && config.hosts[site].last_block_id !== 0){
                     let block_data = blocks[0].split(':');
                     config.irc.config.channels.forEach(function(channel){

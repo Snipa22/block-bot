@@ -9,6 +9,7 @@
   "author": "Alexander Blair",
   "license": "MIT",
   "dependencies": {
+    "debug": "^2.6.8",
     "irc": "^0.5.2",
     "request-json": "^0.6.2"
   }
