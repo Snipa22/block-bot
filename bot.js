@@ -17,7 +17,8 @@ function nodejs_pool_bot(site, url){
                 debug(site + " is at height: " + body[0].height);
                 if (config.hosts[site].last_block_id !== 0){
                     config.irc.config.channels.forEach(function(channel){
-                        bot.say(channel, "Block " + body[0].height + " found on "+site+" approximately "+ Math.floor(Date.now() / 1000) - Math.floor(body[0].ts / 1000) + " seconds ago on the " + body[0].pool_type + " pool!");
+                        let text_string = "Block " + body[0].height + " found on "+site+" approximately "+ Math.floor(Date.now() / 1000) - Math.floor(body[0].ts / 1000) + " seconds ago on the " + body[0].pool_type + " pool!";
+                        bot.say(channel, text_string);
                     });
                 }
                 config.hosts[site].last_block_id = body[0].height;
@@ -40,7 +41,8 @@ function cn_pool_bot(site, url){
                 if (block_height > config.hosts[site].last_block_id && config.hosts[site].last_block_id !== 0){
                     let block_data = blocks[0].split(':');
                     config.irc.config.channels.forEach(function(channel){
-                        bot.say(channel, "Block " + block_height + " found on "+site+" approximately "+ Math.floor(Date.now() / 1000) - parseInt(block_data[1]) + " seconds ago!");
+                        let text_string = "Block " + block_height + " found on "+site+" approximately "+ Math.floor(Date.now() / 1000) - parseInt(block_data[1]) + " seconds ago!";
+                        bot.say(channel, text_string);
                     });
                 }
                 config.hosts[site].last_block_id = block_height;
