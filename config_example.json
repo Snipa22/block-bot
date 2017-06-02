@@ -1,0 +1,31 @@
+{
+  "irc": {
+    "server": "irc.freenode.net",
+    "nick": "blockie-2.0",
+    "config": {
+      "userName": "snipablocks",
+      "realName": "Snipa Block IRC Relay",
+      "ssl": true,
+      "password": "this_should_be_secret",
+      "sasl": true,
+      "channels": ["##secret_debug_channel"]
+    }
+  },
+  "hosts": {
+    "XMRPool.net": {
+      "api": "https://api.xmrpool.net/",
+      "type": "nodejs-pool",
+      "last_block_id": 0
+    },
+    "supportXMR.com": {
+      "api": "https://supportxmr.com/api/",
+      "type": "nodejs-pool",
+      "last_block_id": 0
+    },
+    "xmrpool.eu": {
+      "api": "http://94.23.251.22:8117/",
+      "type": "node-cn-pool",
+      "last_block_id": 0
+    }
+  }
+}
