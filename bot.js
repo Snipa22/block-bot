@@ -1,14 +1,16 @@
 "use strict";
 let fs = require("fs");
 let config = JSON.parse(fs.readFileSync("./config.json"));
-let request = require('request-json');
+let request_json = require('request-json');
+let request = require('request');
 let irc = require("irc");
 let debug = require("debug")("ircbot");
+let zlib = require("zlib");
 
 let bot = new irc.Client(config.irc.server, config.irc.nick, config.irc.config);
 
 function nodejs_pool_bot(site, url){
-    let client = request.createClient(url);
+    let client = request_json.createClient(url);
     client.get('pool/blocks', function(err, res, body){
         if (err){
             console.error(err);
@@ -28,24 +30,44 @@ function nodejs_pool_bot(site, url){
     });
 }
 
+function handle_cn_data(err, res, site){
+    if (err){
+        console.error(err);
+    } else {
+        let body = JSON.parse(res);
+        let blocks = body.pool.blocks;
+        if (Object.keys(blocks).length > 1){
+            let block_height = parseInt(blocks[1]);
+            debug(site + " is at height: " + block_height);
+            if (block_height > config.hosts[site].last_block_id && config.hosts[site].last_block_id !== 0){
+                let block_data = blocks[0].split(':');
+                config.irc.config.channels.forEach(function(channel){
+                    let text_string = "Block " + block_height + " found on "+site+" approximately "+ Math.floor(Date.now() / 1000) - parseInt(block_data[1]) + " seconds ago!";
+                    bot.say(channel, text_string);
+                });
+            }
+            config.hosts[site].last_block_id = block_height;
+        }
+    }
+}
+
 function cn_pool_bot(site, url){
-    let client = request.createClient(url);
-    client.get('get_blocks?height=999999999', function(err, res, body){
+    request(url+'stats', function(err, res, body){
         if (err){
             console.error(err);
         } else {
-            let blocks = body;
-            if (Object.keys(blocks).length > 1){
-                let block_height = parseInt(blocks[1]);
-                debug(site + " is at height: " + block_height);
-                if (block_height > config.hosts[site].last_block_id && config.hosts[site].last_block_id !== 0){
-                    let block_data = blocks[0].split(':');
-                    config.irc.config.channels.forEach(function(channel){
-                        let text_string = "Block " + block_height + " found on "+site+" approximately "+ Math.floor(Date.now() / 1000) - parseInt(block_data[1]) + " seconds ago!";
-                        bot.say(channel, text_string);
-                    });
+            try {
+                JSON.parse(body);
+                handle_cn_data(err, body, site);
+            } catch (err){
+                try {
+                    body = zlib.inflateRawSync(body);
+                    JSON.parse(body);
+                    handle_cn_data(err, body, site);
+                } catch (err){
+                    console.log(site + " is not returning valid data.  Disabling it");
+                    return;
                 }
-                config.hosts[site].last_block_id = block_height;
             }
         }
         setTimeout(cn_pool_bot, 15000, site, url);
