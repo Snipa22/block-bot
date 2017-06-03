@@ -57,7 +57,7 @@ function handle_cn_data(err, res, site){
                             bot.say(channel, text_string);
                         });
                     }
-                    config.hosts[site].last_block_id = block_height;
+                    config.hosts[site].last_block_id = best_block;
                 }
             }
         }
