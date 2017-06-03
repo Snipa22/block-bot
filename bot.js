@@ -52,19 +52,19 @@ function handle_cn_data(err, res, site){
 }
 
 function cn_pool_bot(site, url){
-    request(url+'stats', function(err, res, body){
+    request({url: url+'stats',encoding: null}, function(err, res, body){
         if (err){
             console.error(err);
         } else {
             try {
-                JSON.parse(body);
-                handle_cn_data(err, body, site);
+                JSON.parse(body.toString());
+                handle_cn_data(null, body.toString(), site);
             } catch (err){
                 try {
-                    body = zlib.inflateRawSync(body);
+                    body = zlib.inflateRawSync(body).toString();
                     JSON.parse(body);
-                    handle_cn_data(err, body, site);
-                } catch (err){
+                    handle_cn_data(null, body, site);
+                } catch (err2){
                     console.log(site + " is not returning valid data.  Disabling it");
                     return;
                 }
