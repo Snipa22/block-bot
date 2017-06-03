@@ -36,17 +36,28 @@ function handle_cn_data(err, res, site){
     } else {
         let body = JSON.parse(res);
         let blocks = body.pool.blocks;
-        if (Object.keys(blocks).length > 1){
-            let block_height = parseInt(blocks[1]);
-            debug(site + " is at height: " + block_height);
-            if (block_height > config.hosts[site].last_block_id && config.hosts[site].last_block_id !== 0){
-                let block_data = blocks[0].split(':');
-                config.irc.config.channels.forEach(function(channel){
-                    let text_string = "Block " + block_height.toString() + " found on "+site+" approximately "+ (Math.floor(Date.now() / 1000) - parseInt(block_data[1])).toString() + " seconds ago!";
-                    bot.say(channel, text_string);
-                });
+        if (blocks.length > 1){
+            let best_block_data = "";
+            let best_block = 0;
+            while (blocks.length >0){
+                let block_data = blocks.shift();
+                let block_height = parseInt(blocks.shift());
+                if (block_height > best_block){
+                    best_block = block_height;
+                    best_block_data = block_data;
+                }
+                if (blocks.length === 0){
+                    debug(site + " is at height: " + best_block.toString());
+                    if (block_height > config.hosts[site].last_block_id && config.hosts[site].last_block_id !== 0){
+                        let block_data = best_block_data.split(':');
+                        config.irc.config.channels.forEach(function(channel){
+                            let text_string = "Block " + block_height.toString() + " found on "+site+" approximately "+ (Math.floor(Date.now() / 1000) - parseInt(block_data[1])).toString() + " seconds ago!";
+                            bot.say(channel, text_string);
+                        });
+                    }
+                    config.hosts[site].last_block_id = block_height;
+                }
             }
-            config.hosts[site].last_block_id = block_height;
         }
     }
 }
