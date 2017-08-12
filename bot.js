@@ -21,6 +21,9 @@ function nodejs_pool_bot(site, url){
                     let utc_find = new Date(body[0].ts);
                     config.irc.config.channels.forEach(function(channel){
                         let text_string = "Block " + body[0].height.toString() + " found on "+site+" approximately "+ (Math.floor(Date.now() / 1000) - Math.floor(body[0].ts / 1000)).toString() + " seconds ago at "+utc_find.toUTCString()+" on the " + body[0].pool_type + " pool!";
+                        if (config.hosts[site].hasOwnProperty('custom_spam')) {
+                            text_string += ` (${config.hosts[site].custom_spam})`;
+                        }
                         bot.say(channel, text_string);
                     });
                 }
@@ -54,6 +57,9 @@ function handle_cn_data(err, res, site){
                         let utc_find = new Date(parseInt(block_data[1])*1000);
                         config.irc.config.channels.forEach(function(channel){
                             let text_string = "Block " + best_block.toString() + " found on "+site+" approximately "+ (Math.floor(Date.now() / 1000) - parseInt(block_data[1])).toString() + " seconds ago at "+utc_find.toUTCString()+"!";
+                            if (config.hosts[site].hasOwnProperty('custom_spam')) {
+                                text_string += ` (${config.hosts[site].custom_spam})`;
+                            }
                             bot.say(channel, text_string);
                         });
                     }
